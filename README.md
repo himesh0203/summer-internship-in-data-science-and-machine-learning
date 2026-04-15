@@ -1,1 +1,0 @@
-# summer-internship-in-data-science-and-machine-learning
