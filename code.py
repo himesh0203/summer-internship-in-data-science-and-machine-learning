@@ -47,3 +47,15 @@ accuracy = accuracy_score(y_test, y_pred)
 
 print("Model Accuracy:", round(accuracy * 100, 2), "%")
 print("\nSample Data with Segments:\n", data.head())
+
+
+
+output - 
+
+Model Accuracy: 50.0 %
+
+Sample Data with Segments:
+   age  income  spending_score  purchase  segment
+0   56   82497              92         0        2
+1   46   55987              71         1        1
+2   32   87819              20         0        0
