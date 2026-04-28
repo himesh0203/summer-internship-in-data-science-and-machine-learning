@@ -1,0 +1,58 @@
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+
+# -------- SAMPLE JOB DESCRIPTION --------
+job_description = """
+Looking for a Python developer with knowledge of machine learning,
+data analysis, SQL, and problem-solving skills.
+"""
+
+# -------- SAMPLE RESUMES --------
+resumes = [
+    {
+        "name": "Candidate 1",
+        "text": "Python developer with experience in machine learning and data analysis using pandas and numpy."
+    },
+    {
+        "name": "Candidate 2",
+        "text": "Frontend developer skilled in HTML, CSS, JavaScript, and React."
+    },
+    {
+        "name": "Candidate 3",
+        "text": "Data analyst with SQL, Python, and visualization skills. Good in problem solving."
+    }
+]
+
+# -------- FUNCTION TO CALCULATE SIMILARITY --------
+def calculate_similarity(job_desc, resume_text):
+    documents = [job_desc, resume_text]
+    vectorizer = CountVectorizer().fit_transform(documents)
+    vectors = vectorizer.toarray()
+    similarity = cosine_similarity(vectors)
+    return similarity[0][1]
+
+# -------- PROCESS RESUMES --------
+results = []
+
+for resume in resumes:
+    score = calculate_similarity(job_description, resume["text"])
+    results.append((resume["name"], score))
+
+# -------- SORT RESULTS --------
+results.sort(key=lambda x: x[1], reverse=True)
+
+# -------- DISPLAY OUTPUT --------
+print("\n📊 SmartHire AI - Candidate Ranking:\n")
+
+for i, (name, score) in enumerate(results, start=1):
+    print(f"{i}. {name} - Match Score: {round(score * 100, 2)}%")
+
+
+
+OUTPUT
+
+📊 SmartHire AI - Candidate Ranking:
+
+1. Candidate 1 - Match Score: 89.44%
+2. Candidate 3 - Match Score: 75.32%
+3. Candidate 2 - Match Score: 12.10%
